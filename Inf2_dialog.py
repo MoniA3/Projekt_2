@@ -9,7 +9,7 @@
         begin                : 2024-06-07
         git sha              : $Format:%H$
         copyright            : (C) 2024 by 325781, 325780
-        email                : Maja Kurek, Monika Kulińska
+        email                : Maja Kurek, Monika Kulinska
  ***************************************************************************/
 
 /***************************************************************************
@@ -23,9 +23,11 @@
 """
 
 import os
-
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.core import QgsMessageLog, Qgis
+from qgis.core import QgsProject, QgsPointXY
+from qgis.utils import iface
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -42,3 +44,92 @@ class Informatyka_projekt2Dialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        self.pushButton_przew.clicked.connect(self.przewyzszenie)
+
+        self.pushButton_pole_pow.clicked.connect(self.pole_powierzchni)
+
+    def przewyzszenie(self):
+        obiekt = iface.activeLayer()
+        if obiekt is None:
+            iface.messageBar().pushMessage(
+                "Obliczanie przewyższenia", 
+                "Nie wybrano warstwy.", 
+                level=Qgis.Warning
+            )
+            return
+        obiekt2 = obiekt.selectedFeatures()
+        if len(obiekt2) != 2:
+            iface.messageBar().pushMessage(
+                "Obliczanie przewyższenia", 
+                "Jeżeli chcesz obliczyć różnicę wysokości musisz wybrać 2 punkty!", 
+                level=Qgis.Warning
+            )
+            return
+        if len(obiekt2) == 2:
+            H1 = float(obiekt2[0]['h_plevrf20'])
+            H2 = float(obiekt2[1]['h_plevrf20'])
+            przewyzszenie = round(H2 - H1, 3)
+        
+            self.label_wynik_prze.setText(f"{przewyzszenie}  m")
+        
+            QgsMessageLog.logMessage(
+                f"Różnica wysokości między wybranymi punktami wynosi: {przewyzszenie} m", 
+                level=Qgis.Success
+            )
+            iface.messageBar().pushMessage(
+                "Obliczanie przewyższenia", 
+                "Różnica wysokości między wybranymi punktami została policzona.", 
+                level=Qgis.Success
+            )
+
+    def pole_powierzchni(self):
+        warstwa = iface.activeLayer()
+        if warstwa is None:
+            iface.messageBar().pushMessage(
+                "Pole powierzchni",
+                "Aby policzyć pole powierzchni musisz wybrać warstwę.",
+                level=Qgis.Warning
+            )
+
+        obiekt_pole = iface.activeLayer().selectedFeatures()
+        punkty = []
+        for o in obiekt_pole:
+            x = float(o.geometry().asPoint().x())
+            y = float(o.geometry().asPoint().y())
+            punkt = QgsPointXY(x, y)
+            punkty.append(punkt)
+            
+        if len(obiekt_pole) < 3:
+            iface.messageBar().pushMessage(
+                "Pole powierzchni",
+                'Aby policzyć pole powierzchni wybierz co najmniej TRZY PUNKTY',
+                level = Qgis.Warning
+                )
+            return
+            
+        if len(obiekt_pole)>2:
+            pole = 0
+            ilosc_punktow = len(punkty)
+            for i in range(ilosc_punktow):
+                p = (i + 1) % ilosc_punktow
+                pole += (punkty[p].x() + punkty[i].x()) * (punkty[p].y() - punkty[i].y())
+
+            pole /= 2
+            pole = round(abs(pole/10000), 3)
+            
+            self.label_wynik_pole_pow.setText(str(pole) + 'ha')
+
+            QgsMessageLog.logMessage(
+            f"Pole powierzchni powstałej figury wynosi: {pole} ha.",
+            level=Qgis.Success
+        )
+
+        iface.messageBar().pushMessage(
+            "Pole powierzchni",
+            "Pole powierzchni zostało policzone.",
+            level=Qgis.Success
+        )
+            
+
+
