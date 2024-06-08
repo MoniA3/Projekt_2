@@ -38,10 +38,10 @@
      
 ### SPOSÓB UŻYCIA WTYCZKI:
   1. Na samym początku należy pobrać wtyczkę i umieścić ją w folderze z wtyczkami (prawdopodobna ścieżka z wtyczkami Twojego urządzenia:  "C:\Users\XXX\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins" ---- NALEŻY ZMIENIĆ "XXX" NA TWOJĄ NAZWĘ UŻYTKOWNIKA)                              a następnie załadować wtyczkę w programie QGIS.
-  2. Następnie wczytać trzeba mapę zawierającą potrzebne, wymienione wyżej artybuty oraz elementy geometrii.
-  3. Po wczytaniu mapy należy zaznaczyć na mapie odpowiednią liczbę punktów narzędziem o nazwie 'Zaznacz obiekty prostokątem lub 
-     kliknięciem'.
-  5. Następnie w okienku wtyczki wybrać trzeba odpowiednią warstwę (warstwę na, której znajdują się elementy z atrybutem wysokosci do obliczenia przewyższenia lub z atrybutami współrzędncyh do obliczenia pola)
+  2. Następnienależy wczytać pliki zawierającą potrzebne, wymienione wyżej artybuty (wysokości i elementy geometrii).
+  3. Po wczytaniu pliku należy zaznaczyć na mapie odpowiednią liczbę punktów narzędziem o nazwie 'Zaznacz obiekty prostokątem lub 
+     kliknięciem', aby zaznaczyc więcej niż jeden punkt przytrzymać jednocześnie Ctrl przy wybieraniu punktów.
+  5. Następnie w okienku wtyczki wybrać trzeba odpowiednią warstwę (warstwę, na której znajdują się elementy z atrybutem wysokosci do obliczenia przewyższenia lub z atrybutami współrzędncyh do obliczenia pola)
   6. Po kliknięciu 'Przewyższenie' lub 'Pole powierzchni' pod przyciskiem powinien pojawić się wynik. Jeśli użytkownik nie wybierze wymaganej
      do wykonania wybranej operacji liczby punktów program wyświetli komunikat o powstałym błędzie.
      
