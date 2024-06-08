@@ -17,7 +17,7 @@
   1. Liczenie różnic wysokości pomiędzy dwoma punktami
   
      Aby obliczyć różnicę wysokości między dwoma punktami, należy wybrać dwa punkty z tej samej warstwy w QGIS. Program pobierze wtedy wartości z kolumny
-     'h_plevrf2007nh', w której znajdują się wysokości tych punktów. Następnie wtyczka odejmie wysokość punktu początkowego od wysokości punktu końcowego,
+     'h_plevrf20', w której znajdują się wysokości tych punktów. Następnie wtyczka odejmie wysokość punktu początkowego od wysokości punktu końcowego,
      co da wynik, który może być dodatni lub ujemny - w zależności od kolejności wybranych punktów. Znak wyniku pokaże, czy na danym odcinku teren wznosi się czy opada.
      
      Aby wtyczka poprawnie obliczyła różnicę wysokości pomiędzy punktami, ich wysokości powinny być wyrażone w systemie wysokości  
