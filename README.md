@@ -22,7 +22,7 @@
      
      Aby wtyczka poprawnie obliczyła różnicę wysokości pomiędzy punktami, ich wysokości powinny być wyrażone w systemie wysokości  
      'EVRF2007', a zaznaczone punkty muszą znajdować się na warstwie, która w tabeli artybutów posiada kolumnę z wysokościami w odpowiednim
-     systemie o nazwie 'h_plevrf2007nh'. 
+     systemie o nazwie 'h_plevrf20'. 
      
      Podany wynik wyrażony jest w metrach, z milimetrową dokładnością.
      
